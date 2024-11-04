@@ -56,7 +56,8 @@
                             <a class="nav-link" href="contacts.html">Contacts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</a>
+                            <a class="nav-link linkLogin" href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</a>
+                            <a class="nav-link linkLogout" href="#" style="display: none;" style="display: none;" onclick="logout()">Logout</a>
                         </li>
                     </ul>
                     <form class="d-flex my-2 my-lg-0 border rounded-pill" id="formSearch">
@@ -108,7 +109,8 @@
                 <a class="nav-link" href="contacts.html">Contacts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</a>
+                <a class="nav-link linkLogin" href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</a>
+                <a class="nav-link linkLogout" href="#" style="display: none;" style="display: none;" onclick="logout()">Logout</a>
             </li>
         </ul>
         <p class="text-white-50">Copyright &copy;2024 by Lam Trong Nghia - 22810209</p>
@@ -124,20 +126,19 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="post" id="formLogin">
+                    <form action="#" method="post" id="formLogin" onsubmit="login(event)">
                         <h3 class="text-center">Login Form</h3>
                         <div class="mb-3">
-                            <input type="text" name="username" id="username" placeholder="Username"
-                                class="form-control">
+                            <input type="text" name="username" id="username" placeholder="Username" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <input type="password" name="password" id="password" placeholder="Password"
-                                class="form-control">
+                            <input type="password" name="password" id="password" placeholder="Password" class="form-control">
                         </div>
                         <button type="submit" class="form-control btn">Login</button>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-center">
+                    <div class="text-danger" id="errorMessage"></div>
                 </div>
             </div>
         </div>
@@ -208,14 +209,16 @@
             </div>
     </script>
     <script id="detail-template" type="text/x-handlebars-template">
-        <div class="container py-5 overflow-auto"></div>
+        <div class="container py-5 overflow-auto">
         {{#each data}}
             <h1 class="py-3">{{name}}</h1>
             <img src="{{imagepath}}" alt="{{name}}" class="float-start rounded-4 me-3">
             <p>{{{description}}}</p>
         {{/each}}
+        </div>
     </script>
     <script>
+        checkLogin();
         loadData('aboutus', 'about-us-template', 'about-us');
         loadData('visions', 'our-vision-template', 'our-vision');
         loadData('testimonials', 'testimonials-template', 'testimonials');
