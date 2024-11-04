@@ -1,3 +1,6 @@
+var CAPTCHA_SITE_KEY = '6LddM3QqAAAAAC76LBDJDQOa76GKHAaL4OfkXWpb';
+var CAPTCHA_PROJECT_ID = '6LddM3QqAAAAAC76LBDJDQOa76GKHAaL4OfkXWpb';
+var CAPTCHA_API_KEY = 'AIzaSyAi_QEmDMoQuuBj0y86n-ISapblxRPyKlU'
 function onSubmit(e) {
     e.preventDefault();
 

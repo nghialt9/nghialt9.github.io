@@ -159,14 +159,6 @@
         </div>
        </div>
        
-       <!-- Optional: Place to the bottom of scripts -->
-       <script>
-        const myModal = new bootstrap.Modal(
-            document.getElementById("modalId"),
-            options,
-        );
-       </script>
-       
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -179,7 +171,7 @@
     <!-- HandlebarsJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
-    <script src="js/mssv.js"></script>
+    <script src="js/22810209.js"></script>
 
     <script id="gallery-categories-template" type="text/x-handlebars-template">
         <li class="nav-item">
@@ -208,8 +200,8 @@
             let links = document.querySelectorAll('#gallery-categories a');
             for(let i = 0; i < links.length; i++) {
                 links[i].classList.remove('disabled');
-                link.classList.toggle('disabled');
             }
+            link.classList.toggle('disabled');
         }
     </script>
 </body>
