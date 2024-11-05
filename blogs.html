@@ -61,8 +61,8 @@
                             <a class="nav-link linkLogout" href="#"  style="display: none;" onclick="logout()">Logout</a>
                         </li>
                     </ul>
-                    <form class="d-flex my-2 my-lg-0 border rounded-pill" id="formSearch">
-                        <input class="form-control ms-3 border-0" type="text" placeholder="Search" />
+                    <form class="d-flex my-2 my-lg-0 border rounded-pill" id="formSearch" method="GET" action="search.html">
+                        <input class="form-control ms-3 border-0" type="text" placeholder="Search" name="Keyword" id="Search" required/>
                         <button class="btn my-2 my-sm-0 border-0" type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
@@ -204,9 +204,10 @@
                 <img src="{{imagepath}}" alt="{{name}}" class="float-start me-3 rounded-4">
                 <div class="text-black-50">{{{description}}}</div>
             </div>
-            <div class="py-3">
+            <div class="py-3" id="leave-comment">
                 <h3>Leave your comments</h3>
-                <form action="#" method="post" class="text-black-50">
+                <form action="#" method="post" class="text-black-50" onsubmit="addCommnent(event)">
+                    <input type="hidden" name="BlogId" id="BlogId" value="{{id}}">
                     <div class="row">
                         <div class="col-4">
                             <div class="mb3">
@@ -223,7 +224,7 @@
                     </div>
                     <div>
                         <div class="mb3">
-                            <textarea class="form-control" name="Message" id="Message" rows="3" placeholder="Enter your comments" required></textarea>
+                            <textarea class="form-control" name="Comment" id="Comment" rows="3" placeholder="Enter your comments" required></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -244,6 +245,7 @@
                             <button type="submit" class="btn btn-link py-0 my-0">Submit Comment</button>
                         </div>
                     </div>
+                    <div class="text-center" id="responseMessage"></div>
                 </form>
             </div>
             <a name="comments"></a>
@@ -294,8 +296,49 @@
 
         async function loadBlogDetails(blogId, gotoCommnet = false) {
             await loadData(`blogs/${blogId}`, 'details-template', 'blogs');
+            checkLogin();
             if (gotoCommnet) {
                 window.location.href = "#comments";
+            }
+        }
+
+        async function addCommnent(e) {
+            e.preventDefault();
+
+            let token = localStorage.getItem('token');
+            let postData = {
+                    name: document.getElementById('Name').value,
+                    email: document.getElementById('Email').value,
+                    comment: document.getElementById('Comment').value,
+                    blogId: document.getElementById('BlogId').value,
+                    agree: (document.getElementById('Agree').value == 1)
+                };
+
+            if (token) {
+                let responseMessage = document.getElementById("responseMessage");
+                try {
+                    let response = await fetch(`${API}/users/comment`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                        },
+                        body: JSON.stringify(postData)
+                    });
+
+                    let result = response.json();
+                    if (response.status == 200) {
+                        loadBlogDetails(postData.blogId, true);
+                    }
+                    else
+                    {
+                        throw new Error(result.message);
+                    }
+                } catch (error) {
+                    responseMessage.innerHTML = error;
+                        responseMessage.className = 'text-danger';
+                }
             }
         }
     </script>
