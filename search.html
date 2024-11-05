@@ -74,7 +74,7 @@
 
     <section id="banner-small"></section>
         
-    <section class="container py-5" id="content">
+    <section class="container py-5 overflow-auto" id="content">
     </section>
 
        <!-- Footer -->
@@ -130,7 +130,7 @@
         {{#each data}}
             <h1>{{name}}</h1>
             {{#if imagepath}}
-            <img src="{{imagepath}}" alt="{{name}}" class="float-start me-3">
+            <img src="{{imagepath}}" alt="{{name}}" class="float-start me-3 border rounded-4">
             {{/if}}
             <div class="text-black-50">{{{description}}}</div>
         {{/each}}
